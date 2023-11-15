@@ -4,6 +4,7 @@ from .models import LoginHistory, UploadedImage
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.utils import timezone
+from django.contrib import messages
 
 # Create your views here.
 
@@ -29,6 +30,8 @@ def login_view(request):
                 ip = request.META.get('REMOTE_ADDR')
                 LoginHistory.objects.create(user=user, ip_address=ip)
                 return redirect('index')
+            else:
+                messages.error(request, 'Invalid username or password')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})

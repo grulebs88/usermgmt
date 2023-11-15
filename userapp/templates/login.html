@@ -4,6 +4,11 @@
   <h2>Login</h2>
   <form method="post">
     {% csrf_token %}
+    {% for message in messages %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endfor %}
     {{ form.as_p }}
     <button type="submit">Login</button>
   </form>
